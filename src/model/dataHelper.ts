@@ -1,6 +1,6 @@
 import ItemData from './createInfo'
 // 操作函数
-class DataHelper {
+export default class DataHelper {
   pname:string;
   constructor(pname:string){
     this.pname = pname
@@ -8,6 +8,8 @@ class DataHelper {
   // 读取方法
   readData():any{
     let arr:any = localStorage.getItem(this.pname)
+    console.log(arr);
+    
     if(arr){
       return JSON.parse(arr)
     }else {
@@ -19,14 +21,19 @@ class DataHelper {
     localStorage.setItem(this.pname,JSON.stringify(arr))
   }
   // 添加方法
-  addData(name:string,status:number,text:string){
+  addData(name:string,status:number,text:string):void{
     // 
     let arr:any = this.readData()
     // 获取id
     let id:number = arr.length>0? arr[arr.length-1].id+1 : 1
     let itemData:ItemData = new ItemData(id,name,status,text)
-    let allarr = arr.push(itemData)
-    this.saveData(allarr)
+    console.log(arr);
+    
+    console.log(itemData);
+    
+    arr.push(itemData)
+    
+    this.saveData(arr)
   }
   // 修改方法
   changeData(id:number,name:string,status:number,text:string){

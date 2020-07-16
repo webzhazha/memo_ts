@@ -1,9 +1,7 @@
 <template>
   <div class="pt10">
-    <Info />
-    <Info />
-    <Info />
-    <Info />
+    <Info v-for="item in list" :key="item.id" :obj='item' />
+    {{list}}
   </div>
 </template>
 <script lang='ts'>
@@ -15,7 +13,16 @@ import {Component, Vue} from 'vue-property-decorator'
   }
 })
 export default class Content extends Vue {
-  memoList:any=[];
+  list:any=[];
+  mounted() {
+    console.log(5666);
+    this.$nextTick(()=>{
+      this.list = this['$store'].getters.list
+    })
+    
+    console.log(this.list);
+    
+  }
 }
 </script>
 <style lang='scss'>

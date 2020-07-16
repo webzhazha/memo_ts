@@ -2,7 +2,7 @@
   <div class="info">
     <div class="overhide borb lhh30">
       <span class="left">
-        显示名称
+        {{obj.name}}
       </span>
       <span class="right">
         <span>
@@ -12,18 +12,30 @@
       </span>
     </div>
     <div class="overhide borb lhh30">
-      <span class="left">2017:25:4454</span>
-      <span class="right">分类:学习</span>
+      <span class="left">{{item.time}}</span>
+      <span class="right">分类:{{statusName}}</span>
     </div>
     <div class="lh20">
-      这是内容
+      {{obj.text}}
     </div>
   </div>
 </template>
 <script lang='ts'>
-import {Component, Vue} from 'vue-property-decorator'
+import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
 export default class Info extends Vue {
-
+  statusName:string = ''
+  @Prop()
+    obj: object = {}
+  mounted() {
+    console.log(3333);
+    
+    console.log(this.obj);
+     
+  }
+  @Watch('statusName')
+    getobj(val:any){
+      this.statusName='我是'
+    }
 }
 </script>
 <style lang='scss' scoped>
@@ -34,6 +46,7 @@ export default class Info extends Vue {
     padding: 10px;
     border-radius: 10px;
     margin-right: 30px;
+    margin-bottom: 10px;
   }
   .lhh30 {
     height: 30px;
