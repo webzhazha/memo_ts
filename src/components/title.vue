@@ -6,10 +6,10 @@
       </el-col>
       <el-col :span="8" :offset="12">
         <el-button type="success" round class="mr20" @click="increase">新增</el-button>
-        <el-select v-model="selvalue" placeholder="请选择">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        <el-select v-model="selvalue" placeholder="请选择" @change="selvaluefunc">
+          <el-option v-for="item in optionsNum" :key="item.value" :label="item.label" :value="item.value">
             <span style="float: left">{{ item.label }}</span>
-            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.num }}</span>
           </el-option>
         </el-select>
       </el-col>
@@ -55,15 +55,33 @@
     name: string = '';
     setvalue: number = 1;
     text: string = '';
+    id: number = 0;
+    get optionsNum(){
+      return this['$store'].getters['optionsNum']
+    }
+    selvaluefunc(){
+      this['$store'].commit('changeStatus',this.selvalue)
+      this['$store'].commit('changeList')
+    }
     increase() {
       this.dialogVisible = true
     }
     save(){
+      // 判断是新增还是修改
       if(this.name&&this.text){
-        dataHelper.addData(this.name,this.setvalue,this.text)
+        if(this.id){
+          // 修改
+          dataHelper.changeData(this.id,this.name,this.setvalue,this.text)
+        }else {
+          // 新增
+          dataHelper.addData(this.name,this.setvalue,this.text)
+        }
+        this.id = 0
+        this.name = ''
+        this.setvalue = 1
+        this.text = ''
         // 读取全部  根据状态修改
-        let list = dataHelper.readData()
-        this['$store'].commit('changeList',list)
+        this['$store'].commit('changeList')
         this.dialogVisible = false
       }else {
         this['$message']({
@@ -71,6 +89,7 @@
           type: 'warning'
         });
       }
+      
     }
   }
 </script>

@@ -1,18 +1,24 @@
 # memo_ts
 
-## Project setup
+## 项目概况
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+    本项目基于vue2.0开发，使用tyscript语法编写。
+    根据本地的localstorage数据存储功能，实现日记的新增及记录功能。
 ```
 
-### Compiles and minifies for production
+### 开发技术栈
 ```
-npm run build
+    vue 2.x
+    vue-property-decorator 8.4.x
+    element-ui 2.4.x
+```
+
+### 新建项目
+```
+    vue create memo_ts
+    csd memo_ts
+    vue add @vue/typescript
+    vue add element
 ```
 
 ### Lints and fixes files

@@ -1,7 +1,6 @@
 <template>
   <div class="pt10">
     <Info v-for="item in list" :key="item.id" :obj='item' />
-    {{list}}
   </div>
 </template>
 <script lang='ts'>
@@ -13,15 +12,8 @@ import {Component, Vue} from 'vue-property-decorator'
   }
 })
 export default class Content extends Vue {
-  list:any=[];
-  mounted() {
-    console.log(5666);
-    this.$nextTick(()=>{
-      this.list = this['$store'].getters.list
-    })
-    
-    console.log(this.list);
-    
+  get list(){
+    return this['$store'].getters['list']
   }
 }
 </script>

@@ -8,8 +8,6 @@ export default class DataHelper {
   // 读取方法
   readData():any{
     let arr:any = localStorage.getItem(this.pname)
-    console.log(arr);
-    
     if(arr){
       return JSON.parse(arr)
     }else {
@@ -27,10 +25,6 @@ export default class DataHelper {
     // 获取id
     let id:number = arr.length>0? arr[arr.length-1].id+1 : 1
     let itemData:ItemData = new ItemData(id,name,status,text)
-    console.log(arr);
-    
-    console.log(itemData);
-    
     arr.push(itemData)
     
     this.saveData(arr)

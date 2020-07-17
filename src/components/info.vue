@@ -6,13 +6,13 @@
       </span>
       <span class="right">
         <span>
-          <i class="el-icon-edit mr10 hidden pointer"></i>
-          <i class="el-icon-delete pointer"></i>
+          <i class="el-icon-edit mr10 hidden pointer" @click='change(obj.id)'></i>
+          <i class="el-icon-delete pointer" @click='delets(obj.id)'></i>
         </span>
       </span>
     </div>
     <div class="overhide borb lhh30">
-      <span class="left">{{item.time}}</span>
+      <span class="left">{{obj.time}}</span>
       <span class="right">分类:{{statusName}}</span>
     </div>
     <div class="lh20">
@@ -21,21 +21,41 @@
   </div>
 </template>
 <script lang='ts'>
-import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
+import {Component, Vue, Prop, Watch, Inject} from 'vue-property-decorator'
+import cateEnum from '../model/cateEnum'
+import ItemData from '../model/createInfo'
+import DataHelper from '../model/dataHelper'
+let dataHelper = new DataHelper('alldata')
+@Component
 export default class Info extends Vue {
   statusName:string = ''
   @Prop()
-    obj: object = {}
+    obj!: ItemData;
   mounted() {
-    console.log(3333);
-    
-    console.log(this.obj);
-     
-  }
-  @Watch('statusName')
-    getobj(val:any){
-      this.statusName='我是'
+    switch (this.obj.status) {
+      case 1:
+        this.statusName = '学习'
+        break;
+      case 2: 
+        this.statusName = '游戏'
+        break;
+      case 3:
+        this.statusName = '感情'
+        break;
+      default:
+        break;
     }
+  }
+  @Inject() edit!:any
+  change(id:number){
+    // 
+    this.edit(id)
+    
+  }
+  delets(id:number){
+    dataHelper.delData(id)
+    this['$store'].commit('changeList')
+  }
 }
 </script>
 <style lang='scss' scoped>
