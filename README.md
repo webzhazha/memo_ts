@@ -16,7 +16,7 @@
 ### 新建项目
 ```
     vue create memo_ts
-    csd memo_ts
+    cd memo_ts
     vue add @vue/typescript
     vue add element
 ```
